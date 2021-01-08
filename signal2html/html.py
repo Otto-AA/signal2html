@@ -62,14 +62,17 @@ def dump_thread(thread, output_dir):
     # Create the message color CSS (depends on individuals)
     group_color_css = ""
     msg_css = ".msg-sender-%i { background: %s; }\n"
+    print(thread.recipient)
     if is_group:
         group_recipients = set(m.addressRecipient for m in messages)
         sender_idx = {r: k for k, r in enumerate(group_recipients)}
         colors_used = []
         group_colors = set(ar.color for ar in sender_idx)
         for ar, idx in sender_idx.items():
-            if ar.recipientId._id.startswith("__textsecure_group__"):
-                continue
+            #if isinstance(ar.recipientId._id, int):
+            print(ar)
+            #if ar.recipientId._id.startswith("__textsecure_group__"):
+            #    continue
             # ensure colors are unique, even if they're not in Signal
             ar_color = ar.color
             if ar_color in colors_used:
